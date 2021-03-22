@@ -1,0 +1,31 @@
+{% extends 'dc/base.html' %}
+
+{% block title %}AI Beats{% endblock %}
+
+{% block body %}
+
+    <!-- Hoverable rows -->
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Song Name</th>
+      <th>Song URL</th>
+      <th>Vocal</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for vocal in vocals %}
+    <tr>
+      <td>{{vocal.song_name}}</td>
+      <td><a href="{{vocal.song_url}}" target="_blank">{{vocal.song_url}}</a></td>
+      {% if  vocal.vocal_url %}
+        <td><a href="{{vocal.vocal_url}}" target="_blank">{{vocal.vocal_url}}</a></td>
+      {% else %}
+        <td>{{vocal.vocal.url}}</td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

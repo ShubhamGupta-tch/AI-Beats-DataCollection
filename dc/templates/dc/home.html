@@ -1,0 +1,132 @@
+{% extends 'dc/base.html' %}
+
+{% block title %}AI Beats{% endblock %}
+
+{% block body %}
+
+<div class="row row-eq-spacing-lg">
+                    <div class="col-lg-9">
+                        <div class="content">
+                            <h1 class="content-title">
+                                Upload Music
+                            </h1>
+
+                        </div>
+
+                        <form id="music_form" action="{% url 'upload' %}" method="POST" enctype="multipart/form-data" class="mw-full">
+                            {% csrf_token %}
+
+
+                      <div class="form-group">
+                        <label for="email" class="required">Email</label>
+                        <input type="email" name='email' class="form-control" id="email" placeholder="Email" required="required">
+                      </div>
+
+
+                      <div class="row">
+                          <div class="form-group col-4">
+                            <label for="name" class="required">Song Name</label>
+                            <input type="text" name='name' class="form-control" id="name" placeholder="Song Name" required="required" autocomplete="off">
+                          </div>
+
+                          <div class="col-1"></div>
+
+                          <div class="form-group col-7">
+                            <label for="name" class="required">Song URL</label>
+                            <input type="url" pattern="*.*" name="song_url" class="form-control" id="url" placeholder="Song URL" required="required" autocomplete="off">
+                          </div>
+                      </div>
+
+
+                      <div class="vocals">
+
+                              <div class="form-group">
+                                <label for="youtube" class="required">Vocals</label>
+                                <div class="row">
+                                <input type="url" pattern="*.*" name="vocal_url" class="form-control col" id="youtube" placeholder="YouTube Link" autocomplete="off">
+
+                                <p class="or col-1">Or</p>
+
+                                <div class="custom-file col">
+                                <label for="file-input-1" class="upload_label col"><span class="utext">Choose a Vocal</span></label>
+                                <input type="file" name="vocal_file" id="file-input-1" accept="audio/*">
+                              </div>
+                          </div>
+                              </div>
+
+                      </div>
+
+
+                      <button type="button" class="btn btn-primary btn-block" onclick="submitForm()">Upload</button>
+                    </form>
+
+                    </div>
+                    <div class="col-lg-3 d-none d-lg-block">
+                        <div class="content">
+                            <h2 class="content-title font-size-20">
+                                On this page
+                            </h2>
+
+                        </div>
+                    </div>
+                </div>
+
+
+<style type="text/css">
+    form{
+        --input-height: 50px;
+        font-size: 1.7rem;
+    }
+
+    .custom-file{
+        position: relative;
+    }
+
+    .or{
+        width: 100%;
+        height: 50px;
+        text-align: center;
+        font-size: 21px;
+        transform: translateY(-25%);
+    }
+
+    label.upload_label{
+        position: relative;
+        width: 100%;
+        height: 50px;
+        text-align: center;
+    }
+
+    .utext{
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .file-names{
+        display: none;
+    }
+
+</style>
+
+<script type="text/javascript">
+
+    function updateField(){
+        let status = document.querySelector('.file-names').innerHTML;
+        let span = document.querySelector('span.utext');
+        if (status != span.innerHTML && status != 'No file chosen'){
+            span.innerHTML = status.slice(0, 35);
+        }
+    }
+
+    function submitForm(){
+        localStorage.setItem("email", document.querySelector('#email').value)
+        document.getElementById('music_form').submit();
+    }
+
+    document.querySelector('#email').value = localStorage.getItem('email');
+
+    setInterval(updateField, 1000);
+</script>
+
+{% endblock %}

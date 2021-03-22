@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta tags -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <meta name="viewport" content="width=device-width" />
+
+  <!-- Favicon and title -->
+  <link rel="icon" href="path/to/fav.png">
+  <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <!-- Roboto font (Used when Apple system fonts are not available) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>{% block title %}{% endblock %}</title>
+
+  <!-- Halfmoon CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css" rel="stylesheet" />
+  <!--
+    Or,
+    Use the following (no variables, supports IE11):
+    <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon.min.css" rel="stylesheet" />
+    Learn more: https://www.gethalfmoon.com/docs/customize/#notes-on-browser-compatibility
+  -->
+</head>
+
+<body class="with-custom-webkit-scrollbars with-custom-css-scrollbars" data-dm-shortcut-enabled="true" data-sidebar-shortcut-enabled="true">
+
+    <!-- Page wrapper start -->
+    <div id="page-wrapper" class="page-wrapper with-navbar with-sidebar with-navbar-fixed-bottom" data-sidebar-type="default">
+
+        <!-- Sticky alerts -->
+        <div class="sticky-alerts"></div>
+
+        <!-- Navbar start -->
+        <nav class="navbar">
+            <div class="navbar-content">
+                <button id="toggle-sidebar-btn" class="btn btn-action" type="button" onclick="halfmoon.toggleSidebar()">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </button>
+            </div>
+            <a href="#" class="navbar-brand ml-10 ml-sm-20">
+                <img src="/static/images/aibeats.svg" alt="fake-logo">
+                <span class="d-none d-sm-flex">AI Beats</span>
+            </a>
+            <div class="navbar-content ml-auto">
+                <button class="btn btn-action mr-5" type="button" onclick="TDM()">
+                    <i class="fa fa-moon-o" aria-hidden="true"></i>
+                    <span class="sr-only">Toggle dark mode</span>
+                </button>
+                <a href="{% url 'explore' %}" class="btn btn-primary" role="button">Explore</a>
+            </div>
+        </nav>
+        <!-- Navbar end -->
+
+        <!-- Sidebar overlay -->
+        <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div>
+
+        <!-- Sidebar start -->
+        <div class="sidebar">
+            <div class="sidebar-menu">
+                <div class="sidebar-content">
+                    <input type="text" class="form-control" placeholder="Search">
+
+                </div>
+                <h5 class="sidebar-title">Getting started</h5>
+                <div class="sidebar-divider"></div>
+                <a href="/" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                    </span>
+                    Home
+                </a>
+                <a href="{% url 'explore' %}" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-map" aria-hidden="true"></i>
+                    </span>
+                    Explore
+                </a>
+                <a href="https://github.com/ShubhamGupta-tch/AI-Beats-DataCollection" class="sidebar-link sidebar-link-with-icon" target="_blank">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-code" aria-hidden="true"></i>
+                    </span>
+                    Source Code
+                </a>
+                <br />
+                <h5 class="sidebar-title">Social</h5>
+                <div class="sidebar-divider"></div>
+                <a href="https://www.linkedin.com/company/ai-beats/" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-linkedin" aria-hidden="true"></i>
+                    </span>
+                    LinkedIn
+                </a>
+                <a href="https://bit.ly/3cvc9bs" class="sidebar-link sidebar-link-with-icon" target="_blank">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-slideshare" aria-hidden="true"></i>
+                    </span>
+                    Pitch Deck
+                </a>
+                <a href="mailto:shubhamai@protonmail.com" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                    Email
+                </a>
+            </div>
+        </div>
+        <!-- Sidebar end -->
+
+        <!-- Content wrapper start -->
+                <div class="content-wrapper">
+                    <div class="container">
+                        {% block body %}{% endblock %}
+                    </div>
+                </div>
+                <!-- Content wrapper end -->
+
+        <!-- Navbar fixed bottom start -->
+        <nav class="navbar navbar-fixed-bottom">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fa fa-question-circle-o mr-5" aria-hidden="true"></i>
+                        Help
+                    </a>
+                </li>
+            </ul>
+            <span class="navbar-text">
+                &copy; Copyright 2021, AI Beats
+            </span>
+        </nav>
+        <!-- Navbar fixed bottom end -->
+
+    </div>
+    <!-- Page wrapper end -->
+
+    <!-- Halfmoon JS -->
+    <script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
+    <script type="text/javascript">
+        // Toasts a default alert
+        function toastAlert() {
+            var alertContent = "This is a default alert with <a href='#' class='alert-link'>a link</a> being toasted.";
+            // Built-in function
+            halfmoon.initStickyAlert({
+                content: alertContent,
+                title: "Toast!"
+            })
+        }
+
+        // Toggles the parent's dark mode (if this page is loaded in an iFrame)
+        function parentToggleDarkmode() {
+            window.parent.toggleDarkModeFromChild();
+        }
+
+        // Override the dark mode toggle function to call the parent's one
+        // Again, this is for the case where the page is loaded in an iFrame
+        if (window !== window.parent) {
+            halfmoon.toggleDarkMode = parentToggleDarkmode;
+        }
+
+        halfmoon.toggleSidebar()
+
+        function TDM(){
+            halfmoon.toggleDarkMode();
+            if(document.body.classList.contains('dark-mode')){
+                localStorage.setItem('mode', 'dark-mode')
+            }
+            else{
+                localStorage.setItem('mode', 'light-mode')
+            }
+        }
+
+        if (localStorage.getItem('mode') == null){
+            localStorage.setItem('mode', 'dark-mode');
+        }
+
+        document.body.classList.add(localStorage.getItem('mode'));
+    </script>
+</body>
+
+</html>
