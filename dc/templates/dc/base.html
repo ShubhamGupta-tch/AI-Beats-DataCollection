@@ -109,6 +109,16 @@
         </div>
         <!-- Sidebar end -->
 
+
+
+
+
+
+
+
+
+
+
         <!-- Content wrapper start -->
                 <div class="content-wrapper">
                     <div class="container">
@@ -178,6 +188,49 @@
 
         document.body.classList.add(localStorage.getItem('mode'));
     </script>
+
+
+
+
+
+
+
+
+  <div class="sticky-alerts"></div>
+
+
+  <!--MESSAGES START-->
+
+    {% if messages %}
+        {% for message in messages %}
+
+                <script>
+                    msgType = ''
+                    if ('{{message.tags}}' == 'error'){
+                        msgType = 'danger'
+                    }
+                    else{
+                        msgType = "{{message.tags}}"
+                    }
+                      halfmoon.initStickyAlert({
+                      content: "{{message|safe}}",      // Required, main content of the alert, type: string (can contain HTML)
+                      // title: "Another alert",     // Optional, title of the alert, default: "", type: string
+                      alertType: `alert-${msgType}`,  // Optional, type of the alert, default: "", must be "alert-primary" || "alert-success" || "alert-secondary" || "alert-danger"
+                      fillType: "",               // Optional, fill type of the alert, default: "", must be "filled-lm" || "filled-dm" || "filled"
+                      hasDismissButton: true,     // Optional, the alert will contain the close button if true, default: true, type: boolean
+                      timeShown: 5000,         // Optional, time the alert stays on the screen (in ms), default: 5000, type: number
+                    });
+                </script>
+
+        {% endfor %}
+    {% endif %}
+
+
+    <!--MESSAGES END-->
+
+
+
+
 </body>
 
 </html>

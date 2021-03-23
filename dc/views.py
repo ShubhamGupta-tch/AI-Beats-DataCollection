@@ -1,14 +1,25 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Vocal
+import random
 
 
 # Create your views here.
+
+success_messages = [
+    'Wow! I liked it. Let\'s go for one more.',
+    'Yeah! Thanks for uploading.',
+    'I really appreciate it. It helps dude!',
+    'Oooo... I like your taste.'
+    'Just Amazing, let\'s do that again.',
+    'Your music is as good as you! I want more of it.',
+]
+
 def home(request):
     return render(request, 'dc/home.html')
 
 def explore(request):
-    vocals = Vocal.objects.all()
+    vocals = Vocal.objects.all().order_by('-id')
     return render(request, 'dc/explore.html', {'vocals': vocals})
 
 def upload(request):
@@ -22,9 +33,11 @@ def upload(request):
 
         vocal_url = request.POST['vocal_url']
         if len(vocal_url) < 2 and not file:
-            messages.error('Please Enter the Vocals!')
+            print('I got in!')
+            messages.error(request, 'Please Enter the Vocals!')
 
         else:
+            messages.success(request, random.choices(success_messages)[0])
             if len(vocal_url) > 2:
                 vocal = Vocal(
                         email = request.POST['email'],
@@ -44,4 +57,4 @@ def upload(request):
                 vocal.save()
 
 
-    return render(request, 'dc/home.html')
+    return redirect('home')
